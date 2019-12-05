@@ -177,12 +177,7 @@ document.querySelectorAll('.time-field').forEach(field=>{
     }
   }});
 
-/*document.querySelectorAll('.time-field').forEach(field=>{
-  field.addEventListener('change',(e)=>{
-    e.target.id == 'work-duration' ? set_time_value(work_time,parseInt(e.target.value)):
-    e.target.id == 'break-duration' ? set_time_value(short_break_time,parseInt(e.target.value)): set_time_value(long_break_time,parseInt(e.target.value));
-  });
-});*/
+
 
 
 
