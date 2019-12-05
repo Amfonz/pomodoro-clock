@@ -5,19 +5,34 @@
     <meta charset="UTF-8">
   </head>
   <body>
+      <div id="controlls-container">
+          <button id="work">Pomodoro</button>
+          <button id="short-break">Short Break</button>
+          <button id="long-break">Long Break</button>
+        </div>
     <div id="time-container">
       <p id="time"></p>
     </div>
-    <div id="controlls-container">
+    <div id="time-controlls-container">
       <button id="start">Start</button>
       <button id="pause">Pause</button>
-      <button id="stop">Stop</button>
+      <button id="reset">Reset</button>
     </div>
     <div>
-      <button id='work-increment'>+</button>
-      <input type="text" id="work-duration">
-      <button id='work-decrement'>-</button>
+      <button class="increment" data-change="work">+</button>
+      <input type="text" class="time-field" id="work-duration" value="25">
+      <button class='decrement' data-change="work">-</button>
     </div>
+    <div>
+      <button class='increment' data-change='break'>+</button>
+      <input type="text" class="time-field" id="break-duration" value="5">
+      <button class='decrement' data-change='break'>-</button>
+    </div>
+    <div>
+        <button class='increment' data-change='long-break'>+</button>
+        <input type="text" class="time-field" id="long-break-duration" value="10">
+        <button class='decrement' data-change='long-break'>-</button>
+      </div>
     <script src="index.js"></script>
   </body>
 </html>

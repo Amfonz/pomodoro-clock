@@ -1,13 +1,5 @@
 /*
-  Logic: take date when user hits start
-  every second decrement time
-  if pause ...
-    take another date and subtract the second from the first
-    pause clock (clear interval)
-  on Resume
-    set timeout(difference).. decrement
-    then set interval (for seconds)
-
+ 
 */
 class Timer {
   /*
@@ -54,7 +46,7 @@ class Timer {
   is_running(){
     return this.running;
   }
-  display_formatted_time(difference) {
+  display_formatted_time(difference=this.duration) {
     let difference_in_seconds = difference/1000;
     let minutes = Math.floor(difference_in_seconds / 60);
     let seconds = Math.ceil(difference_in_seconds % 60);
@@ -68,9 +60,33 @@ class Timer {
   }
   
 }
-var timer = new Timer(25);
-var work_time;
-var break_time;
+let work_duration = document.querySelector('#work-duration');
+let short_break_duration = document.querySelector('#break-duration');
+let long_break_duration = document.querySelector('#long-break-duration');
+
+
+var timer = new Timer(parseInt(work_duration.value));
+var mode = "work";
+
+
+
+document.querySelector('#work').addEventListener('click',(e)=>{
+  change_mode('work',work_duration);
+});
+document.querySelector('#short-break').addEventListener('click',(e)=>{
+  change_mode('short',short_break_duration);
+});
+document.querySelector('#long-break').addEventListener('click',(e)=>{
+  change_mode('long',long_break_duration);
+});
+
+function change_mode(new_mode,new_time){
+  timer.end();
+  mode = new_mode;
+  if(!new_time.value) new_time.value = 1;
+  timer = new Timer(parseInt(new_time.value));
+  timer.display_formatted_time();
+}
 
 document.querySelector('#start').addEventListener('click',(e)=>{
   if(!timer.is_running()) timer.start();
@@ -79,30 +95,98 @@ document.querySelector('#pause').addEventListener('click',()=>{
   if (timer.is_running()) timer.pause();
 
 });
-document.querySelector('#stop').addEventListener('click',()=>{
+document.querySelector('#reset').addEventListener('click',()=>{
   timer.end();
+  change_mode(mode,get_time_field_matches_mode());
+  timer.display_formatted_time();
 });
 
 
 
-/***  Controlls stuff */
+function get_time_field_matches_mode(){
+  switch(mode){
+    case 'work':
+      return work_duration;
+    case 'short':
+      return short_break_duration;
+    case 'long':
+      return long_break_duration;
+  }
+}
 
-document.querySelector('#work-increment').addEventListener('click',()=>{
-  let duration = document.querySelector('#work-duration');
-  duration.value = parseInt(duration.value) + 1;
+
+/***  time input field control button handlers */
+/*
+replace these with two loops one collect all increments the other decrements
+use datafield to call appropriate funcitons
+
+
+
+
+*/
+document.querySelectorAll('.increment').forEach(button => {
+  button.addEventListener('click',(e)=>{
+    let field;
+    switch(button.dataset.change){
+      case 'work':
+        field = document.querySelector('#work-duration');
+        field.value = parseInt(field.value)+1;
+        break;
+      case 'break':
+        field = document.querySelector('#break-duration');
+        field.value = parseInt(field.value)+1;
+        break;
+      case 'long-break':
+        field = document.querySelector('#long-break-duration');
+        field.value = parseInt(field.value)+1;
+        break;
+    }
+  });
 });
-
-document.querySelector('#work-decrement').addEventListener('click',()=>{
-  let duration = document.querySelector('#work-duration');
-  if(duration.value == 0) return;
-  duration.value = parseInt(duration.value) - 1;
-
+document.querySelectorAll('.decrement').forEach(button => {
+  button.addEventListener('click',(e)=>{
+    let field;
+    switch(button.dataset.change){
+      case 'work':
+        field = document.querySelector('#work-duration');
+        field.value = decrement_input_field(parseInt(field.value));
+        break;
+      case 'break':
+        field = document.querySelector('#break-duration');
+        field.value = decrement_input_field(parseInt(field.value));
+        break;
+      case 'long-break':
+        field = document.querySelector('#long-break-duration');
+        field.value = decrement_input_field(parseInt(field.value));
+        break;
+    }
+  });
 });
+function decrement_input_field(value){
+  return value == 1 ? 1 : value - 1;
+}
 
-document.querySelector('#work-duration').onkeypress = (e)=>{
-  let key = e.key.toUpperCase();
-  console.log(isNaN(key));
-  if(isNaN(key)){
-       return false;
-  }};
 
+
+/*         time input field handlers                   */
+document.querySelectorAll('.time-field').forEach(field=>{
+  onkeypress = (e)=>{
+    let key = e.key.toUpperCase();
+    if(isNaN(key) || (key == 0 && e.target.value == '')){
+         return false;
+    }
+  }});
+
+/*document.querySelectorAll('.time-field').forEach(field=>{
+  field.addEventListener('change',(e)=>{
+    e.target.id == 'work-duration' ? set_time_value(work_time,parseInt(e.target.value)):
+    e.target.id == 'break-duration' ? set_time_value(short_break_time,parseInt(e.target.value)): set_time_value(long_break_time,parseInt(e.target.value));
+  });
+});*/
+
+
+
+function init(){
+  timer.display_formatted_time();
+}
+init();
