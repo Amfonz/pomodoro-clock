@@ -15,10 +15,9 @@ class Timer {
     start -- Date
     pause -- Date
     restart -- delay
-    time -- int (seconds)
+    duration: time -- never will be set 0
   
   */
- 
   constructor(duration_in_mins){
     //duration stored in millis 
     this.duration = duration_in_mins * 60000;
@@ -59,7 +58,7 @@ class Timer {
     let difference_in_seconds = difference/1000;
     let minutes = Math.floor(difference_in_seconds / 60);
     let seconds = Math.ceil(difference_in_seconds % 60);
-    //values like 59.999 supposed to render as xx:00 need to be rounded up to 60
+    //values like 24.59.999 supposed to render as 25:00  (not 24:60 ) need to be rounded up to 60 (hence ceiling and if )
     if(seconds == 60){ seconds = "0"; minutes++;}
     
     document.querySelector('#time').textContent = `${minutes}:${seconds < 10  ? seconds = `0${seconds}` : seconds}`;
@@ -69,9 +68,9 @@ class Timer {
   }
   
 }
-var timer = new Timer(.1);
-document.querySelector('#time').textContent = timer.display_formatted_time(timer.duration);
-
+var timer = new Timer(25);
+var work_time;
+var break_time;
 
 document.querySelector('#start').addEventListener('click',(e)=>{
   if(!timer.is_running()) timer.start();
@@ -80,5 +79,30 @@ document.querySelector('#pause').addEventListener('click',()=>{
   if (timer.is_running()) timer.pause();
 
 });
+document.querySelector('#stop').addEventListener('click',()=>{
+  timer.end();
+});
 
+
+
+/***  Controlls stuff */
+
+document.querySelector('#work-increment').addEventListener('click',()=>{
+  let duration = document.querySelector('#work-duration');
+  duration.value = parseInt(duration.value) + 1;
+});
+
+document.querySelector('#work-decrement').addEventListener('click',()=>{
+  let duration = document.querySelector('#work-duration');
+  if(duration.value == 0) return;
+  duration.value = parseInt(duration.value) - 1;
+
+});
+
+document.querySelector('#work-duration').onkeypress = (e)=>{
+  let key = e.key.toUpperCase();
+  console.log(isNaN(key));
+  if(isNaN(key)){
+       return false;
+  }};
 
