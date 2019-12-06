@@ -1,0 +1,91 @@
+:root {
+  --base-font: 1rem;
+}
+body {
+   background-color: hsl(0,0%,95%);
+  text-align: center;
+ 
+}
+
+
+.darker{
+      background-color: hsl(96,34%,56%);
+
+}
+.notClicked {
+    background-color: hsl(96,34%,86%);
+}
+.modes,.timer-controlls {
+  border: none;
+  width: 20%;
+  height: 50px;
+  border-radius: 10px
+
+}
+.modes {
+  min-width: 100px;
+}
+.modes:hover,.clicked,.notClicked:hover{
+  background-color: hsl(96,34%,76%);
+
+}
+#time{
+  text-align: center;
+  width: 60%;
+  margin: 0 auto;
+  line-height: 4;
+}
+.increment, .decrement {
+  width: 50px;
+  line-height: 2; 
+  border: none;
+  border-radius: 10px;
+}
+input{
+  width: 100px;
+  height: 3rem;
+  border: none;
+  text-align: center;
+}
+#duration-container{
+  width: 80%;
+  margin: auto;
+}
+.duration-controls{
+  display: inline-block;
+  margin-left: 10px;
+}
+.duration-controls > input {
+  margin: 0 10px;
+}
+footer{
+  clear: left;
+  padding-top: 10px;
+}
+
+/* typography
+  - all calculations should i want to scale it up or down for bigger or smaller screens
+  - just change the base-font for different screen sizes
+*/
+
+html, * {
+  font-family: optima courier;
+}
+#message{
+    font-size: calc(var(--base-font) * 2);
+
+    margin-bottom: 0;
+}
+#time{
+  font-family: courier,'courier new',optima,monospace;
+  font-size: calc(var(--base-font) * 3);
+}
+.increment,.decrement,input {
+  font-size: calc(var(--base-font) * 2);
+}
+.timer-controlls,.modes {
+  font-size: var(--base-font);
+}
+
+
+

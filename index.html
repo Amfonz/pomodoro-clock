@@ -3,36 +3,45 @@
   <head>
     <title>Pomodoro Clock</title>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href='index.css' type="text/css">
   </head>
   <body>
-      <div id="controlls-container">
-          <button id="work">Pomodoro</button>
-          <button id="short-break">Short Break</button>
-          <button id="long-break">Long Break</button>
+    <h1>Pomodoro Clock</h1>
+      <div id="controls-container">
+          <button class="modes notClicked" id="work">Pomodoro</button>
+          <button class="modes notClicked" id="short-break">Short Break</button>
+          <button class="modes notClicked" id="long-break">Long Break</button>
         </div>
     <div id="time-container">
+      <p id="message">Work</p>
       <p id="time"></p>
     </div>
     <div id="time-controlls-container">
-      <button id="start">Start</button>
-      <button id="pause">Pause</button>
-      <button id="reset">Reset</button>
+      <button class="timer-controlls notClicked blink" id="start">Start</button>
+      <button class="timer-controlls notClicked blink" id="pause">Pause</button>
+      <button class="timer-controlls notClicked blink" id="reset">Reset</button>
     </div>
-    <div>
-      <button class="increment" data-change="work">+</button>
-      <input type="text" class="time-field" id="work-duration" value="25">
-      <button class='decrement' data-change="work">-</button>
-    </div>
-    <div>
-      <button class='increment' data-change='break'>+</button>
-      <input type="text" class="time-field" id="break-duration" value="5">
-      <button class='decrement' data-change='break'>-</button>
-    </div>
-    <div>
-        <button class='increment' data-change='long-break'>+</button>
-        <input type="text" class="time-field" id="long-break-duration" value="10">
-        <button class='decrement' data-change='long-break'>-</button>
+    <div id="duration-container">
+      <div class="duration-controls">
+        <p>Pomodoro:</p>
+        <button class="increment notClicked blink" data-change="work-duration">+</button>
+        <input type="text" class="time-field" id="work-duration" value="25">
+        <button class='decrement notClicked blink' data-change="work-duration">-</button>
       </div>
+      <div class="duration-controls">
+        <p>Short Break:</p>
+        <button class='increment notClicked blink' data-change='break-duration'>+</button>
+        <input type="text" class="time-field" id="break-duration" value="5">
+        <button class='decrement notClicked blink' data-change='break-duration'>-</button>
+      </div>
+      <div class="duration-controls">
+          <p>Long Break</p>
+          <button class='increment notClicked blink' data-change='long-break-duration'>+</button>
+          <input type="text" class="time-field flash" id="long-break-duration" value="10">
+          <button class='decrement notClicked blink' data-change='long-break-duration'>-</button>
+      </div>
+    </div>
+    <footer><p>In the spirit of the <a href="https://en.wikipedia.org/wiki/Pomodoro_Technique">Pomodoro Technique</a> is this minimalist timer to help you get your work done. Enjoy.</p> </footer>
     <script src="index.js"></script>
   </body>
 </html>
