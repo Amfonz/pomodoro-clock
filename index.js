@@ -41,6 +41,13 @@ class Timer {
   end(){
     this.pause();
     this.start_time = 0;
+    if(mode == 'work'){
+      change_mode('short',short_break_duration);
+      timer.start();
+    }else{
+      change_mode('work',work_duration);
+      timer.start();
+    }
 
   }
   is_running(){
@@ -81,9 +88,9 @@ document.querySelector('#long-break').addEventListener('click',(e)=>{
 });
 
 function change_mode(new_mode,new_time){
-  timer.end();
+  timer.pause();
   mode = new_mode;
-  if(!new_time.value) new_time.value = 1;
+  if(!new_time.value || new_time.value == 0) new_time.value = 1;
   timer = new Timer(parseInt(new_time.value));
   timer.display_formatted_time();
 }
@@ -96,7 +103,7 @@ document.querySelector('#pause').addEventListener('click',()=>{
 
 });
 document.querySelector('#reset').addEventListener('click',()=>{
-  timer.end();
+  timer.pause();
   change_mode(mode,get_time_field_matches_mode());
   timer.display_formatted_time();
 });
