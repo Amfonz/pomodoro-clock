@@ -4,7 +4,7 @@ A Pomodoro clock
 <ul>
   <li>Made with HTML, CSS, JS</li>
   <li>Features adjustable work and break periods</li>
-  <li>Customizable appearance</li>
+  <li>Chime on timer end</li>
   <li>standard timer features like stop, start, pause, reset</li>
 
 </ul>

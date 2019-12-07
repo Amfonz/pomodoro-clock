@@ -75,6 +75,16 @@ class Timer {
 }
 /* end timer class */
 
+/* globals */
+let work_duration = document.querySelector('#work-duration');
+let short_break_duration = document.querySelector('#break-duration');
+let long_break_duration = document.querySelector('#long-break-duration');
+
+
+var timer = new Timer(parseInt(work_duration.value));
+var mode = "work";
+
+/* audio */
 
 function play_chime_x_seconds(sec){
   let chime = document.querySelector('audio');
@@ -85,17 +95,10 @@ function play_chime_x_seconds(sec){
   },sec*1000);
 }
 
-let work_duration = document.querySelector('#work-duration');
-let short_break_duration = document.querySelector('#break-duration');
-let long_break_duration = document.querySelector('#long-break-duration');
-
-
-var timer = new Timer(parseInt(work_duration.value));
-var mode = "work";
 
 
 /*
-  buttons to manually change to a different mode
+  Mode change handlers and functions
 */
 document.querySelector('#work').addEventListener('click',(e)=>{
   color_mode_buttons(e.target);
@@ -130,8 +133,9 @@ function change_mode(new_mode,new_time){
   new_mode == 'work' ? document.querySelector('#message').textContent = 'Work' : document.querySelector('#message').textContent = `${new_mode.slice(0,1).toUpperCase()}${new_mode.slice(1)} Break`;
 }
 
+/* timer stop start ... handlers */
+
 document.querySelector('#start').addEventListener('click',(e)=>{
-  
   if(!timer.is_running()) timer.start();
   // no double hits on start
 });
@@ -163,13 +167,8 @@ function get_time_field_matches_mode(){
 }
 
 
-/***  time input field control button handlers */
 /*
-replace these with two loops one collect all increments the other decrements
-use datafield to call appropriate funcitons
-
-
-
+Button Styling for buttons that blink on click
 
 */
 
@@ -183,6 +182,8 @@ document.querySelectorAll('.blink').forEach(button => {
     button.classList.toggle('notClicked');
   });
 });
+
+/* time input increment and decrement */
 document.querySelectorAll('.increment').forEach(button => {
   button.addEventListener('click',(e)=>{
     let field;
@@ -235,8 +236,6 @@ document.querySelectorAll('.time-field').forEach(field=>{
          return false;
     }
   }});
-
-
 
 
 
