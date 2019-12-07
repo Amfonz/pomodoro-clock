@@ -45,6 +45,8 @@ class Timer {
     this.start_time = 0;
     //poor separation here but this sets up the next clock to tick
     //break if we just worked or work if we just break and starts it ...
+    play_chime_x_seconds(5);  
+
     if(mode == 'work'){
       change_mode('short',short_break_duration);
       color_mode_buttons(document.querySelector('#short-break'));;
@@ -71,6 +73,18 @@ class Timer {
   }
   
 }
+/* end timer class */
+
+
+function play_chime_x_seconds(sec){
+  let chime = document.querySelector('audio');
+  chime.loop = true;
+  chime.play();
+  setTimeout(()=>{
+    chime.loop = false;
+  },sec*1000);
+}
+
 let work_duration = document.querySelector('#work-duration');
 let short_break_duration = document.querySelector('#break-duration');
 let long_break_duration = document.querySelector('#long-break-duration');
